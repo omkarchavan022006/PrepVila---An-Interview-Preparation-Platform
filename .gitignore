@@ -1,0 +1,27 @@
+# Local environment files and secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python environments, caches, and generated files
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-*
+**/staticfiles/
+**/media/
+.pytest_cache/
+.coverage
+*.egg-info/
+
+# JavaScript dependencies and build output
+**/node_modules/
+**/dist/
+**/dist-ssr/
+
+# Logs and operating-system files
+*.log
+Thumbs.db
+.DS_Store
