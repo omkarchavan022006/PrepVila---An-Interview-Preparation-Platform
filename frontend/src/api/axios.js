@@ -7,8 +7,12 @@ export const DEFAULT_API_TIMEOUT_MS = 20000
 export const AI_REQUEST_TIMEOUT_MS = 90000
 export const FILE_TRANSFER_TIMEOUT_MS = 60000
 
+const DEFAULT_API_BASE_URL = import.meta.env.DEV
+  ? 'http://127.0.0.1:8000/api'
+  : 'https://prep-vila-an-interview-preparation-nu.vercel.app/api'
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://127.0.0.1:8000/api' : '/api'),
+  baseURL: import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL,
   timeout: DEFAULT_API_TIMEOUT_MS,
   headers: { Accept: 'application/json' },
 })
