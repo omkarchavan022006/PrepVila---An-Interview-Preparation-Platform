@@ -24,15 +24,30 @@ SECRET_KEY = os.getenv(
 )
 
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+# Never serve Django's detailed debug page from a deployed Vercel instance,
+# even if the project has DEBUG=True in its environment settings.
+IS_VERCEL_DEPLOYMENT = (
+    os.getenv("VERCEL") == "1"
+    or os.getenv("VERCEL_ENV", "").lower() in {"production", "preview"}
+)
+if IS_VERCEL_DEPLOYMENT:
+    DEBUG = False
 
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.getenv(
-        "ALLOWED_HOSTS",
-        "127.0.0.1,localhost"
-    ).split(",")
-    if host.strip()
-]
+ALLOWED_HOSTS = list(dict.fromkeys(
+    [
+        host.strip()
+        for host in os.getenv(
+            "ALLOWED_HOSTS",
+            "127.0.0.1,localhost"
+        ).split(",")
+        if host.strip()
+    ]
+    + [
+        os.getenv("VERCEL_URL", "").strip(),
+        os.getenv("VERCEL_PROJECT_PRODUCTION_URL", "").strip(),
+        "prep-vila-an-interview-preparation-nu.vercel.app",
+    ]
+))
 
 
 # ==========================================
