@@ -22,7 +22,7 @@ def health_check(request):
             status=status.HTTP_503_SERVICE_UNAVAILABLE,
         )
 
-    if not db_connected:
+    if db_connected is None:
         return Response(
             {
                 "status": "error",
